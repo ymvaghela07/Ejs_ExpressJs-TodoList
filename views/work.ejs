@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <title>ToDoList</title>
+  </head>
+  <body>
+    <%- include("partials/header.ejs") %>
+
+    <div class="box">
+      <h1>Work</h1>
+    </div>
+
+    <div class="todoContainer">
+      <% for(let i = 0; i < workTodoList.length; i++) { %>
+      <div class="item">
+        <input type="checkbox" />
+        <p><%= workTodoList[i] %></p>
+      </div>
+      <% } %>
+      <form class="item" action="/work" method="post">
+        <input
+          type="text"
+          name="workListItem"
+          placeholder="New Item"
+          autocomplete="off"
+        />
+        <button type="submit" name="list">+</button>
+      </form>
+    </div>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Get all the checkboxes and associated <p> elements
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      const tasks = document.querySelectorAll(".item p");
+
+      // Add a click event listener to each checkbox
+      checkboxes.forEach(function (checkbox, index) {
+        checkbox.addEventListener("click", function () {
+          // Check if the checkbox is checked
+          if (checkbox.checked) {
+            // Add a CSS class to the associated <p> element to cross it out
+            tasks[index].classList.add("crossed-out");
+          } else {
+            // Remove the CSS class to un-cross out the <p> element
+            tasks[index].classList.remove("crossed-out");
+          }
+        });
+      });
+    });
+  </script>
+</html>
